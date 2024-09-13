@@ -1,0 +1,52 @@
+// FOR SCROLLBAR
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+.react-horizontal-scrolling-menu--scroll-container {
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
+ }
+
+// FOR ADDING STORIES
+.plus{
+  position: absolute; 
+  bottom: 25%;
+  right: 10%;
+  background-color: white;
+  border-radius: 50%;
+  border-width: 2%;
+}
+@media (max-width: 768px) {
+  .plus {
+    position: absolute; 
+    bottom: 0%;
+    right: 10%;
+    background-color: white;
+    border-radius: 50%;
+    border-width: 2%;
+  }
+}
+@media (max-width: 1024px) {
+  .plus {
+    position: absolute; 
+    bottom: 5%;
+    right: 10%;
+    background-color: white;
+    border-radius: 50%;
+    border-width: 2%;
+  }
+}
+@media (min-width: 1440px) {
+  .plus {
+    position: absolute; 
+    bottom: 25%;
+    right: 10%;
+    background-color: white;
+    border-radius: 50%;
+    border-width: 2%;
+  }
+}
+  
