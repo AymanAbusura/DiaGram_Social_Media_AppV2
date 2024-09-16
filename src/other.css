@@ -1,4 +1,4 @@
-// FOR SCROLLBAR
+/* FOR SCROLLBAR */
 ::-webkit-scrollbar {
     display: none;
   }
@@ -10,7 +10,7 @@
   scrollbar-width: none;
  }
 
-// FOR ADDING STORIES
+/* FOR ADDING STORIES */
 .plus{
   position: absolute; 
   bottom: 25%;
