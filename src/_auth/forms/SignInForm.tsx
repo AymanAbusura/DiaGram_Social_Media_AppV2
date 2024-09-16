@@ -102,7 +102,7 @@ const SignInForm = () => {
               ) : 'Sign in'
             }
           </Button>
-          <p className="text-small-regular text-light-2 text-center mt-2">
+          <p className={`text-small-regular text-center mt-2 ${isDarkMode ? 'text-light-2' : 'text-black'}`}>
             Don't have an account? <Link to="/sign-up" className="text-primary-500 text-small-semibold ml-1">Sign up</Link>
           </p>
         </form>
