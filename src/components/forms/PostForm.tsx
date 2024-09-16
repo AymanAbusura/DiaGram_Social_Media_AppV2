@@ -14,6 +14,8 @@ import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutati
 import { useUserContext } from "@/context/AuthContext"
 import { useToast } from "../ui/use-toast"
 
+// import { useTheme } from '@/context/ThemeContext';
+
 type PostFormProps ={
     post?: Models.Document;
     action: 'Create' | 'Update';
@@ -24,10 +26,11 @@ const PostForm = ({ post, action }: PostFormProps) => {
   const { mutateAsync: updatePost , isPending: isLoadingUpdate} = useUpdatePost();
   // const { mutateAsync: deletePost , isPending: isLoading} = useCreatePost();
 
-
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // const { isDarkMode } = useTheme();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({

@@ -4,11 +4,13 @@ import StoryList from "@/components/shared/StoryList";
 import UserCard from "@/components/shared/UserCard";
 import { useGetRecentPosts, useGetUsers, useGetCurrentUser } from "@/lib/react-query/queriesAndMutations"; // Adjust as needed to get current user
 import { Models } from "appwrite";
+import { useTheme } from '@/context/ThemeContext';
 
 const Home = () => {
   const { data: posts, isPending: isPostLoading, isError: isErrorPosts } = useGetRecentPosts();
   const { data: creators, isPending: isUserLoading, isError: isErrorCreators } = useGetUsers(10);
-  const { data: currentUser } = useGetCurrentUser(); // Assuming a hook exists to fetch current user
+  const { data: currentUser } = useGetCurrentUser();
+  const { isDarkMode } = useTheme();
   
   if (isErrorPosts || isErrorCreators) {
     return (
@@ -30,7 +32,7 @@ const Home = () => {
           <div className='max-w-screen-sm flex flex-row items-center w-full gap-6 md:gap-9 overflow-x-scroll' style={{scrollbarWidth:'none' }}>
             <StoryList />
           </div>
-          <hr className="border w-full border-dark-4/80" />
+          <hr className={`border w-full ${isDarkMode ? 'border-dark-4/80' : ''}`} />
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
           {isPostLoading && !posts ? (
             <Loader />
@@ -44,13 +46,13 @@ const Home = () => {
         </div>
       </div>
       <div className="home-creators">
-        <h3 className="h3-bold text-light-1">Top Creators</h3>
+        <h3 className={`h3-bold ${isDarkMode ? 'text-light-1' : 'text-black-1'}`}>Top Creators</h3>
         {isUserLoading && !creators ? (
           <Loader />
         ) : (
           <ul className="grid 2xl:grid-cols-2 gap-6">
             {creators?.documents
-              .filter(creator => creator.$id !== currentUser?.$id)  // Exclude current user
+              .filter(creator => creator.$id !== currentUser?.$id)
               .map((creator) => (
                 <li key={creator?.$id}>
                   <UserCard user={creator} />

@@ -5,8 +5,10 @@ import UserCard from './UserCard';
 type SearchUsersResultsProps = {
   isSearchFetching: boolean;
   searchedUsers: any;
+  currentUserId: string;
 }
-const SearchUsersResults = ({ isSearchFetching, searchedUsers }: SearchUsersResultsProps) => {
+
+const SearchUsersResults = ({ isSearchFetching, searchedUsers, currentUserId }: SearchUsersResultsProps) => {
   if(isSearchFetching) { 
     return <Loader />
   }
@@ -14,9 +16,11 @@ const SearchUsersResults = ({ isSearchFetching, searchedUsers }: SearchUsersResu
   if (searchedUsers && searchedUsers.documents.length > 0) {
     return (
       <div className='flex flex-wrap gap-9 w-full max-w-5xl'>
-        {searchedUsers.documents.map((user: any) => (
-          <li className='flex-1 min-w-[200px] w-full'>
-            <UserCard key={user.$id} user={user} />
+        {searchedUsers.documents.
+        filter((user: any) => user.$id !== currentUserId)
+        .map((user: any) => (
+          <li key={user.$id} className='flex-1 min-w-[200px] w-full'>
+            <UserCard user={user} />
           </li>
         ))}
       </div>

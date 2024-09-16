@@ -3,6 +3,7 @@ import { formatDate } from "@/lib/utils";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import PostStats from "./PostStats";
+import { useTheme } from '@/context/ThemeContext';
 
 type PostCardProps = {
     post: Models.Document;
@@ -10,6 +11,7 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
     const { user } = useUserContext();
+    const { isDarkMode } = useTheme();
 
     if(!post.creator) return; 
 
@@ -21,7 +23,7 @@ const PostCard = ({ post }: PostCardProps) => {
                     <img src={post?.creator?.imageUrl || '/assets/icons/profile-placholder.svg'} alt='creator' className="rounded-full w-12 lg:h-12"/>
                 </Link>
                 <div className="flex flex-col">
-                    <p className="flex gap-1 base-medium lg:body-bold text-light-1">{post.creator.name}{post.creator.label === 'Verified' && <img src="/assets/icons/verify.svg" alt="verify" width={20} height={20} />}</p>
+                    <p className={`flex gap-1 base-medium lg:body-bold ${isDarkMode ? 'text-light-1' : 'text-black-1'}`}>{post.creator.name}{post.creator.label === 'Verified' && <img src="/assets/icons/verify.svg" alt="verify" width={20} height={20} />}</p>
                     <div className="flex-center gap-2 text-light-3">
                         <p className="subtle-semibold lg:small-regular">{formatDate(post.$createdAt)}</p>
                         -

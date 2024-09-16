@@ -2,9 +2,11 @@ import { Models } from "appwrite";
 import { useGetCurrentUser } from "@/lib/react-query/queriesAndMutations";
 import Loader from "@/components/shared/Loader";
 import MessagesList from "@/components/shared/MessagesList";
+import { useTheme } from '@/context/ThemeContext';
 
 const Messages = () => {
   const { data: currentUser } = useGetCurrentUser();
+  const { isDarkMode } = useTheme();
 
   const messages = currentUser?.save
     .map((messages: Models.Document) => ({
@@ -18,7 +20,7 @@ const Messages = () => {
   return (
     <div className="saved-container">
       <div className="flex gap-2 w-full max-w-5xl">
-        <img src="/assets/icons/message.svg" width={36} height={36} alt="edit" className="invert-white" />
+        <img src="/assets/icons/message.svg" width={36} height={36} alt="edit" className={`${isDarkMode ? 'invert-white' : ''}`} />
         <h2 className="h3-bold md:h2-bold text-left w-full">Messages</h2>
       </div>
 
