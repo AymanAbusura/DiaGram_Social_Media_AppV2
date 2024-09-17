@@ -210,8 +210,12 @@
   }
 
   /* Bottom bar */
-  .bottom-bar {
+  .dark .bottom-bar {
     @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-dark-2 px-5 py-4 md:hidden;
+  }
+
+  .bottom-bar {
+    @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-light-1 px-5 py-4 md:hidden;
   }
 
   /* File uploader */

@@ -19,7 +19,7 @@ const GridPostList = ({ posts, showUser = true, showStats = true }: GridPostList
   return (
     <ul className='grid-container'>
       {posts?.map((post) => (
-        <li key={post.$id} className='relative min-w-80 h-80'>
+        <li key={post.$id} className='relative min-w-78 h-80'>
           <Link to={`/posts/${post.$id}`} className='grid-post_link'>
             <img src={post.imageUrl} alt='post' className='h-full w-full object-cover' />
           </Link>
