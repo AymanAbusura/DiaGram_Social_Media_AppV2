@@ -36,7 +36,7 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+  const onCropComplete = useCallback((croppedAreaPixels: any) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
@@ -77,8 +77,8 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
               max={3}
               step={0.1}
               aria-labelledby="Zoom"
-              onChange={(e, zoom) => setZoom(Number(zoom))}
-              style={{ marginTop: '13rem'}}
+              onChange={(zoom) => setZoom(Number(zoom))}
+              style={{ marginTop: '13rem' }}
             />
             <div className="flex justify-end gap-4 mt-2">
               <Button
