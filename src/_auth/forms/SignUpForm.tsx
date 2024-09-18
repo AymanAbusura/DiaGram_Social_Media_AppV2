@@ -21,10 +21,8 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
-
   const { mutateAsync: signInAccount, isPending: isSingingIn } = useSignInAccount();
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
     defaultValues: {
@@ -32,16 +30,15 @@ const SignUpForm = () => {
       username: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
-  })
- 
-  // 2. Define a submit handler.
+  });
+
   async function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    // create a user by
     const newUser = await createUserAccount(values);
 
     if(!newUser) {
-      return toast({ title: 'Sign up faild. Please try again.' });
+      return toast({ title: 'Sign up failed. Please try again.', variant: 'destructive' });
     }
 
     const session = await signInAccount({
@@ -50,17 +47,16 @@ const SignUpForm = () => {
     });
 
     if(!session) {
-      return toast({ title: 'Sign in faild. Please try again.' });
+      return toast({ title: 'Sign in failed. Please try again.', variant: 'destructive' });
     }
 
     const isLoggedIn = await checkAuthUser();
 
     if(isLoggedIn) {
       form.reset();
-
       navigate('/');
     } else {
-      return toast({ title: 'Sign in faild. Please try again.' });
+      return toast({ title: 'Sign in failed. Please try again.', variant: 'destructive' });
     }
   }
   
@@ -73,7 +69,6 @@ const SignUpForm = () => {
           width={300}
           height={300}
         />
-        {/* <img src='/assets/images/logo.svg' alt="logo" width={300} height={300} /> */}
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
         <p className='text-light-3 small-medium md:base-regular mt-2'>To use DiaGram, please enter your details</p>
       
@@ -130,8 +125,21 @@ const SignUpForm = () => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input type="password" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type="submit" className="shad-button_primary">
-            { isCreatingAccount|| isSingingIn || isUserLoading ? (
+            { isCreatingAccount || isSingingIn || isUserLoading ? (
               <div className='flex-center gap-2'>
                 <Loader /> Loading...
               </div>
@@ -139,17 +147,16 @@ const SignUpForm = () => {
             }
           </Button>
           <p className={`text-small-regular text-center mt-2 ${isDarkMode ? 'text-light-2' : 'text-black'}`}>
-            Already have an account <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Log in</Link>
+            Already have an account? <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Log in</Link>
           </p>
         </form>
         <div className="flex justify-center gap-3">
           <img src='/assets/images/googleplay.png' alt="Googleplay" width={100} height={100} />
           <img src='/assets/images/appstore.png' alt="Appstore" width={100} height={100} />
         </div>
-          {/* <LightMode /> */}
       </div>
     </Form>
   )
 }
 
-export default SignUpForm
+export default SignUpForm;

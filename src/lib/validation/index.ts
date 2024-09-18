@@ -1,11 +1,22 @@
 import * as z from "zod";
 
 // ============================================================ USER
+// export const SignUpValidation = z.object({
+//   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+//   username: z.string().min(2, { message: "Name must be at least 2 characters." }),
+//   email: z.string().email(),
+//   password: z.string().min(8, { message: "Password must be at least 8 characters." }),
+// });
+
 export const SignUpValidation = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  username: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email(),
-  password: z.string().min(8, { message: "Password must be at least 8 characters." }),
+  name: z.string().min(1, "Name is required"),
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email format").regex(/@/, "Email must contain @").regex(/\.com$/, "Email must end with .com"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+  confirmPassword: z.string().min(6, "Password confirmation is required"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
 });
 
 export const SignInValidation = z.object({
