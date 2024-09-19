@@ -8,10 +8,13 @@ import { useDeletePost, useGetPostById, useGetUserPosts } from "@/lib/react-quer
 import PostStats from "@/components/shared/PostStats";
 import GridPostList from "@/components/shared/GridPostList";
 
+import { useTheme } from '@/context/ThemeContext';
+
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
+  const { isDarkMode } = useTheme();
 
   const { data: post, isPending } = useGetPostById(id || '');
   const { data: userPosts, isPending: isUserPostLoading } = useGetUserPosts(post?.creator.$id);
@@ -70,15 +73,17 @@ const PostDetails = () => {
               </div>
             </div>
 
-            <hr className="border w-full border-dark-4/80" />
+            <hr className={`border w-full ${isDarkMode ? 'border-dark-4/80' : ''}`} />
 
             <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
               <p>{post?.caption}</p>
               <ul className="flex gap-1 mt-2">
                 {post?.tags.map((tag: string, index: string) => (
-                  <li key={`${tag}${index}`} className="text-light-3 small-regular">
-                    #{tag}
-                  </li>
+                  tag ? (
+                    <li key={`${tag}${index}`} className="text-light-3 small-regular">
+                      #{tag}
+                    </li>
+                  ) : null
                 ))}
               </ul>
             </div>
@@ -91,7 +96,7 @@ const PostDetails = () => {
       )}
 
       <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
+      <hr className={`border w-full ${isDarkMode ? 'border-dark-4/80' : ''}`} />
 
         <h3 className="body-bold md:h3-bold w-full my-10">
           More Related Posts

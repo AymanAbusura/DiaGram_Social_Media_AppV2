@@ -40,9 +40,11 @@ const PostCard = ({ post }: PostCardProps) => {
                 <p>{post.caption}</p>
                 <ul className="flex gap-1 mt-2">
                     {post.tags.map((tag: string) => (
-                        <li key={tag} className="text-light-3">
-                            #{tag}
-                        </li>
+                        tag ? (
+                            <li key={tag} className="text-light-3">
+                                #{tag}
+                            </li>
+                        ) : null
                     ))}
                 </ul>
             </div>
