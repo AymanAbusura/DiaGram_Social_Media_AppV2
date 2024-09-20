@@ -16,13 +16,16 @@ interface StatBlockProps {
   value: string | number;
   label: string;
   isDarkMode: boolean;
+  href?: string;
 }
 
-const StatBlock = ({ value, label, isDarkMode }: StatBlockProps) => (
-  <div className="flex-center gap-2">
-    <p className="small-semibold lg:body-bold text-primary-500">{value}</p>
-    <p className={`small-medium lg:base-medium ${isDarkMode ? 'text-light-2' : 'text-black-1'}`}>{label}</p>
-  </div>
+const StatBlock = ({ value, label, isDarkMode, href }: StatBlockProps) => (
+  <Link to={href || '#'} className="flex-center gap-2" style={{ textDecoration: 'none', color: 'inherit' }}>
+    <div className="flex-center gap-2" style={{ cursor: href ? 'pointer' : 'default' }}>
+      <p className="small-semibold lg:body-bold text-primary-500">{value}</p>
+      <p className={`small-medium lg:base-medium ${isDarkMode ? 'text-light-2' : 'text-black-1'}`}>{label}</p>
+    </div>
+  </Link>
 );
 
 const Profile = () => {
@@ -103,8 +106,8 @@ const Profile = () => {
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
               <StatBlock value={currentUser.posts.length} label="Posts" isDarkMode={isDarkMode} />
-              <StatBlock value={followersCount} label="Followers" isDarkMode={isDarkMode} />
-              <StatBlock value={followingCount} label="Following" isDarkMode={isDarkMode} />
+              <StatBlock value={followersCount} label="Followers" isDarkMode={isDarkMode} href={`/follower-profile/${id}`} />
+              <StatBlock value={followingCount} label="Following" isDarkMode={isDarkMode} href={`/following-profile/${id}`} />
             </div>
 
             <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">

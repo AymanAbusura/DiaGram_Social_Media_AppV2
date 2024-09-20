@@ -9,6 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 import Settings from './_root/pages/Settings';
 import { FollowProvider } from './context/FollowContext';
 import { ThemeProvider } from './context/ThemeContext';
+import Follower from './_root/pages/Follower';
+import Following from './_root/pages/Following';
+
 
 const App = () => {
   return (
@@ -33,6 +36,8 @@ const App = () => {
               <Route path='/profile/:id/*' element={<Profile />} />
               <Route path='/update-profile/:id' element={<UpdateProfile />} />
               <Route path='/settings-profile/:id' element={<Settings />} />
+              <Route path='/follower-profile/:id' element={<Follower />} />
+              <Route path='/following-profile/:id' element={<Following />} />
             </Route>
           </Routes>
           <Toaster />
